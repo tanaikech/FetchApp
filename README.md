@@ -27,6 +27,10 @@ In order to fetch data from URL, there is [Class UrlFetchApp](https://developers
 | [createFormData()](#createformdata)   | This method is used for creating an instance of formData.                                                                                                                                                                                                                                                                                                 |
 | [append(key, value)](#createformdata) | This method appends a formData using key and value to created formData. Each type of "key" and "value" is string and blob, respectively. About this, please check the following sample script.                                                                                                                                                            |
 
+> - `params` of `FetchApp.fetch(url, params)` and `requests[]` of `FetchApp.fetchAll(requests[])` are basically the same with `params` of [`UrlFetchApp.fetch(url, params)`](https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app#fetchurl-params) and `requests[]` of [`UrlFetchApp.fetchAll(requests[])`](https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app#fetchallrequests), respectively. At `FetchApp`, the property of `body` is used for giving the form data. Other properties are the same with `UrlFetchApp`.
+
+> - If `payload` of property is used in `params` and `requests[]`, `body` is not used. Namely, it is completely the same with `UrlFetchApp`. Only when `body` is used, the type of multipart/form-data is requested.
+
 I would like to add more methods in the future.
 
 # Library's project key
