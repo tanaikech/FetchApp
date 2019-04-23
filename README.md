@@ -8,13 +8,13 @@
 
 # Overview
 
-**This is a GAS library for creating and requesting the type of multipart/form-data using Google Apps Script. This library enhances Class UelFetchApp of Google Apps Script.**
+**This is a Google Apps Script library which enhances Class UrlFetchApp to assist in creating and requesting multipart/form-data.**
 
 <a name="description"></a>
 
 # Description
 
-In order to fetch data from URL, there is [Class UrlFetchApp](https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app) in Google Apps Script. As the method for fetching, there is the method of [`fetch(url, params)`](<https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app#fetch(String,Object)>). In the current stage which was released this library, when user want to request with [the type of multipart/form-data](https://www.w3.org/TR/html5/sec-forms.html#multipart-form-data), the request body is required to be created by the user. But it is [a bit difficult to create the request body](https://gist.github.com/tanaikech/d595d30a592979bbf0c692d1193d260c). I thought that if the request body for the type of multipart/form-data can be easily created, it might be also useful for other users. So I created this as a GAS library.
+Google Apps Script provides [Class UrlFetchApp](https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app) with a fetch method [`fetch(url, params)`](<https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app#fetch(String,Object)>), however, the request body for [multipart/form-data](https://www.w3.org/TR/html5/sec-forms.html#multipart-form-data), must be created by the user, and it is [a bit difficult to do so](https://gist.github.com/tanaikech/d595d30a592979bbf0c692d1193d260c). I've created this library in the hope that simplification of this process would be useful for others.
 
 <a name="methods"></a>
 
@@ -22,14 +22,14 @@ In order to fetch data from URL, there is [Class UrlFetchApp](https://developers
 
 | Method                                | Description                                                                                                                                                                                                                                                                                                                                               |
 | :------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [fetch(url, params)](#fetch)          | This method is used for running a single request. This method uses `UrlFetchApp.fetch()`. Each type of "url" and "params" is string and object, respectively. "params" uses the object of `UrlFetchApp.fetch(url, params)`. In this method, a property of `body` is added. About this, please check the following sample script.                          |
-| [fetchAll(requests[])](#fetchall)     | This method is used for running multiple requests. This method uses `UrlFetchApp.fetchAll()`. By this, each request works by the asynchronous process. Type of "requests" is object. "requests" uses the object of `UrlFetchApp.fetchAll(requests)`. In this method, a property of `body` is added. About this, please check the following sample script. |
+| [fetch(url, params)](#fetch)          | This method is used for running a single request. This method uses `UrlFetchApp.fetch()`. The type of "url" and "params" are string and object, respectively. "params" uses the object of `UrlFetchApp.fetch(url, params)`. In this method, a property of `body` is added. This is demonstrated in the sample script below. |
+| [fetchAll(requests[])](#fetchall)     | This method is used for running multiple requests. This method uses `UrlFetchApp.fetchAll()`. Each request is processed asynchronously. The type of "requests" is an object. "requests" uses the object of `UrlFetchApp.fetchAll(requests)`. In this method, a property of `body` is added. This is demonstrated in the sample script below. |
 | [createFormData()](#createformdata)   | This method is used for creating an instance of formData.                                                                                                                                                                                                                                                                                                 |
-| [append(key, value)](#createformdata) | This method appends a formData using key and value to created formData. Each type of "key" and "value" is string and blob, respectively. About this, please check the following sample script.                                                                                                                                                            |
+| [append(key, value)](#createformdata) | This method appends a formData using key and value to created formData. The type of "key" and "value" are string and blob, respectively. This is demonstrated in the sample script below.                                                                                                                                                    |
 
-> - `params` of `FetchApp.fetch(url, params)` and `requests[]` of `FetchApp.fetchAll(requests[])` are basically the same with `params` of [`UrlFetchApp.fetch(url, params)`](https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app#fetchurl-params) and `requests[]` of [`UrlFetchApp.fetchAll(requests[])`](https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app#fetchallrequests), respectively. At `FetchApp`, the property of `body` is used for giving the form data. Other properties are the same with `UrlFetchApp`.
+> - `params` of `FetchApp.fetch(url, params)` and `requests[]` of `FetchApp.fetchAll(requests[])` are basically the same with `params` of [`UrlFetchApp.fetch(url, params)`](https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app#fetchurl-params) and `requests[]` of [`UrlFetchApp.fetchAll(requests[])`](https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app#fetchallrequests), respectively. At `FetchApp`, the property of `body` is used for giving the form data. Other properties are the same as in `UrlFetchApp`.
 
-> - If `payload` of property is used in `params` and `requests[]`, `body` is not used. Namely, it is completely the same with `UrlFetchApp`. Only when `body` is used, the type of multipart/form-data is requested.
+> - If `payload` of property is used in `params` and `requests[]`, `body` is not used; it is completely the same as the default `UrlFetchApp`. Only when `body` is used is multipart/form-data requested.
 
 I would like to add more methods in the future.
 
@@ -41,20 +41,20 @@ I would like to add more methods in the future.
 
 # How to install
 
-- Open Script Editor. And please operate follows by click.
+- Open Script Editor. Click as follows:
 - -> Resource
 - -> Library
-- -> Input Script ID to text box. Script ID is **`1sm9V-w8-0i3U4-10N6XyaRjHk5voiuJ1ArKSLo3htOUasB6GcPcIq8Kb`**.
+- -> Input the Script ID in the text box. The Script ID is **`1sm9V-w8-0i3U4-10N6XyaRjHk5voiuJ1ArKSLo3htOUasB6GcPcIq8Kb`**.
 - -> Add library
-- -> Please select latest version
-- -> Developer mode ON (If you don't want to use latest version, please select others.)
-- -> Identifier is "**`FetchApp`**". This is set under the default.
+- -> Please select the latest version
+- -> Developer mode ON (Or select others if you don't want to use the latest version)
+- -> The identifier is "**`FetchApp`**". This is set under the default.
 
-[If you want to read about Libraries, please check this.](https://developers.google.com/apps-script/guide_libraries).
+[You can read more about libraries in Apps Script here](https://developers.google.com/apps-script/guide_libraries).
 
 ## About scopes
 
-This library uses the following 1 scope. This is installed in the library. So users are not required to do anything for this.
+This library uses the following scope. This is installed in the library, and nothing further is required from the user.
 
 - `https://www.googleapis.com/auth/script.external_request`
 
@@ -64,11 +64,11 @@ This library uses the following 1 scope. This is installed in the library. So us
 
 ## 1. fetch(url, params)
 
-This method is used for running a single request. This method uses `UrlFetchApp.fetch()`. Each type of "url" and "params" is string and object, respectively. "params" uses the object of `UrlFetchApp.fetch(url, params)`. In this method, a property of `body` is added.
+This method is used for running a single request. This method uses `UrlFetchApp.fetch()`. The type of "url" and "params" are string and object, respectively. "params" uses the object of `UrlFetchApp.fetch(url, params)`. In this method, a property of `body` is added.
 
 ### Sample script
 
-As a sample situation, it supposes to convert PDF file to new Google Document using the method of [files.create](https://developers.google.com/drive/api/v3/reference/files/create) Drive API v3.
+As an example, this is how one may convert a PDF file to a new Google Document using the method of [files.create](https://developers.google.com/drive/api/v3/reference/files/create). (Drive API v3)
 
 ```javascript
 function sample1() {
@@ -101,11 +101,11 @@ function sample1() {
 
 ## 2. fetchAll(requests)
 
-This method is used for running multiple requests. This method uses `UrlFetchApp.fetchAll()`. By this, each request works by the asynchronous process. Type of "requests" is object. "requests" uses the object of `UrlFetchApp.fetchAll(requests)`. In this method, a property of `body` is added.
+This method is used for running multiple requests. This method uses `UrlFetchApp.fetchAll()`. Each request is processed asynchronously. The type of "requests" is an object. "requests" uses the object of `UrlFetchApp.fetchAll(requests)`. In this method, a property of `body` is added.
 
 ### Sample script
 
-As a sample situation, it supposes to overwrite 2 existing Google Documents by 2 text files using the method of [files.update](https://developers.google.com/drive/api/v3/reference/files/update) Drive API v3. In the current stage, [the batch request of Drive API cannot use the file media.](https://developers.google.com/drive/api/v3/batch) This sample script might become a workaround for updating files by quasi batching request with the asynchronous process.
+As an example, this shows how to overwrite two existing Google Documents using the content of two text files using the method of [files.update](https://developers.google.com/drive/api/v3/reference/files/update). (Drive API v3) Currently, [the Drive API batch request cannot use the file media](https://developers.google.com/drive/api/v3/batch). This sample script might become a workaround for updating files by quasi-batching requests via an asynchronous process.
 
 ```javascript
 function sample2() {
@@ -152,17 +152,17 @@ function sample2() {
 
 ## 3. createFormData(), append(key, value)
 
-`createFormData()` and `append(key, value)` are used for creating an instance of formData and append object to formData, respectively.
+`createFormData()` and `append(key, value)` are used for creating an instance of formData, and appending an object to formData, respectively.
 
-**About the sample scripts, you can see them at [`fetch(url, params)`](#fetch) and [`fetchAll(requests)`](#fetchall).**
+**Sample scripts may be seen under the sections for [`fetch(url, params)`](#fetch) and [`fetchAll(requests)`](#fetchall).**
 
-- About these methods, I referred [`Form​Data()`](https://developer.mozilla.org/en-US/docs/Web/API/FormData/FormData) and [`fetch()`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch) of Javascript.
+- I referred to Javascript's [`Form​Data()`](https://developer.mozilla.org/en-US/docs/Web/API/FormData/FormData) and [`fetch()`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch) methods in creating these methods.
 
 # IMPORTANT
 
-I created this library for requesting the type of multipart/form-data using Google Apps Script. In my test situations, I could confirm that this script works. But I think that this library cannot be used for other all situations. About this, I apologize. I would like to make this library grow by knowing various situations in the future.
+I created this library for requesting multipart/form-data using Google Apps Script. While in my test scenarios, I could confirm that this script works, I am sorry to say that I cannot guarantee it will work for all purposes. I would like to make this library more encompassing; please report any issues you encounter.
 
-If this library was useful for you, I'm glad.
+I sincerely hope this library is useful for you.
 
 ---
 
@@ -178,7 +178,7 @@ If this library was useful for you, I'm glad.
 
 [Tanaike](https://tanaikech.github.io/about/)
 
-If you have any questions and commissions for me, feel free to contact me.
+If you have any questions or comments, feel free to contact me.
 
 <a name="Update_History"></a>
 
