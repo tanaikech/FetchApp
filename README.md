@@ -75,7 +75,7 @@ function sample1() {
   var fileId = "### fileId of PDF ###";
   var metadata = {
     name: "sampleDocument", // Filename of created Google Document
-    mimeType: MimeType.GOOGLE_DOCS // MimeType of Google Document
+    mimeType: MimeType.GOOGLE_DOCS, // MimeType of Google Document
   };
   var fileBlob = DriveApp.getFileById(fileId).getBlob();
   var form = FetchApp.createFormData(); // Create form data
@@ -89,7 +89,7 @@ function sample1() {
   var params = {
     method: "POST",
     headers: { Authorization: "Bearer " + ScriptApp.getOAuthToken() },
-    body: form
+    body: form,
   };
   var res = FetchApp.fetch(url, params);
   Logger.log(res);
@@ -113,16 +113,16 @@ function sample2() {
     {
       fileName: "newFilename1", // new filename
       docs: "### GoogleDocumentId1 ###", // Destination fileId of existing Google Document.
-      textFile: "### textFileId1 ###" // Source fileId of text file.
+      textFile: "### textFileId1 ###", // Source fileId of text file.
     },
     {
       fileName: "newFilename2",
       docs: "### GoogleDocumentId2 ###",
-      textFile: "### textFileId2 ###"
-    }
+      textFile: "### textFileId2 ###",
+    },
   ];
   var accessToken = ScriptApp.getOAuthToken();
-  var requests = contents.map(function(e) {
+  var requests = contents.map(function (e) {
     var metadata = { name: e.fileName };
     var form = FetchApp.createFormData(); // Create form data
     form.append(
@@ -138,7 +138,7 @@ function sample2() {
       url: url,
       method: "PATCH",
       headers: { Authorization: "Bearer " + accessToken },
-      body: form
+      body: form,
     };
     return params;
   });
@@ -187,5 +187,9 @@ If you have any questions and commissions for me, feel free to contact me.
 - v1.0.0 (April 20, 2019)
 
   1. Initial release.
+
+- v1.0.1 (April 13, 2020)
+
+  1. When V8 runtime is enabled, it was found that an error occurred. So this bug was removed.
 
 [TOP](#top)

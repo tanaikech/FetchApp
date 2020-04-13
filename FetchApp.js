@@ -113,7 +113,7 @@ function append(key, blob) {
           data = "Content-Disposition: form-data; name=\"" + (e || "sample" + i) + "\"\r\n";
           data += "Content-Type: " + (object[e].getContentType() || "application/octet-stream") + "; charset=UTF-8\r\n\r\n";
           Array.prototype.push.apply(ar, Utilities.newBlob(data).getBytes());
-          Array.prototype.push.apply(ar, object[e].getBytes());
+          ar = ar.concat(object[e].getBytes());
           Array.prototype.push.apply(ar, Utilities.newBlob("\r\n--" + boundary + (i === obj.length - 1 ? "--" : "\r\n")).getBytes());
           return ar;
         }, Utilities.newBlob("--" + boundary + "\r\n").getBytes());
