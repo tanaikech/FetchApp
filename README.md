@@ -66,7 +66,7 @@ This library uses the following scope. This is installed in the library, and not
 
 This method is used for running a single request. This method uses `UrlFetchApp.fetch()`. The type of "url" and "params" are string and object, respectively. "params" uses the object of `UrlFetchApp.fetch(url, params)`. In this method, a property of `body` is added.
 
-### Sample script
+### Sample script 1
 
 As an example, this is how one may convert a PDF file to a new Google Document using the method of [files.create](https://developers.google.com/drive/api/v3/reference/files/create). (Drive API v3)
 
@@ -95,6 +95,36 @@ function sample1() {
   Logger.log(res);
   // DriveApp.createFile(blob) // This comment line is used for automatically detecting scope for running this sample script.
 }
+```
+
+<a name="sample2"></a>
+
+### Sample script 2
+
+At the following sample script, `blob` is sent as `files`.
+
+```javascript
+function multipartformdata_files() {
+  var blob = Utilities.newBlob("sample value", MimeType.PLAIN_TEXT, "sample.txt");
+  var form = FetchApp.createFormData();
+  form.append("sample", blob);
+  var params = {
+    method: "POST",
+    headers: { Authorization: "Bearer sampleToken"},
+    body: form,
+  };
+  var res = FetchApp.fetch(url, params);
+  console.log(res.getContentText());
+}
+```
+
+Above script is the same with the following curl command.
+
+```bash
+$ curl -X POST \
+  -F sample='@sample.txt;type=text/plain' \
+  -H 'Content-Type: multipart/form-data' \
+  '### URL ###'
 ```
 
 <a name="fetchall"></a>
@@ -190,7 +220,7 @@ If you have any questions or comments, feel free to contact me.
 
 - v1.0.1 (April 13, 2020)
 
-  1. When V8 runtime is enabled, it was found that an error occurred. So this bug was removed.
+  1. When V8 runtime is enabled, it was found that an error occurred. So this bug was removed. [Ref](#sample2)
 
 - v1.0.2 (September 19, 2020)
 
