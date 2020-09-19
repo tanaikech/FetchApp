@@ -192,4 +192,8 @@ If you have any questions or comments, feel free to contact me.
 
   1. When V8 runtime is enabled, it was found that an error occurred. So this bug was removed.
 
+- v1.0.2 (September 19, 2020)
+
+  1. From this version, when a blob is sent, the blob is sent to `files`.
+
 [TOP](#top)

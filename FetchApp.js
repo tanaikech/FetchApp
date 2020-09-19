@@ -110,7 +110,7 @@ function append(key, blob) {
           if (!(object[e].toString() === "Blob" && typeof object[e] === "object")) {
             throw new Error("Value of formData is not a Blob.");
           }
-          data = "Content-Disposition: form-data; name=\"" + (e || "sample" + i) + "\"\r\n";
+          data = "Content-Disposition: form-data; name=\"" + (e || "sample" + i) + "\"; filename=\"" + (e || "sample" + i) + "\"\r\n";
           data += "Content-Type: " + (object[e].getContentType() || "application/octet-stream") + "; charset=UTF-8\r\n\r\n";
           Array.prototype.push.apply(ar, Utilities.newBlob(data).getBytes());
           ar = ar.concat(object[e].getBytes());
