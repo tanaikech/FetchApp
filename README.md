@@ -105,6 +105,7 @@ At the following sample script, `blob` is sent as `files`.
 
 ```javascript
 function multipartformdata_files() {
+  var url = "###";
   var blob = Utilities.newBlob("sample value", MimeType.PLAIN_TEXT, "sample.txt");
   var form = FetchApp.createFormData();
   form.append("sample", blob);
